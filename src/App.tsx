@@ -43,6 +43,22 @@ function App() {
 
   }
 
+  const handleChecked = (id: number, checked: boolean) => {
+    const newTodos = todos.map((todo: Todo) => {
+      if (todo.id === id) {
+        todo.checked = !checked;
+      }
+      return todo;
+    });
+
+    setTodos(newTodos);
+  }
+
+  const handleDelete = (id: number) => {
+    const newTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(newTodos);
+  }
+
   return (
     <div className="App">
       <div>
@@ -62,6 +78,12 @@ function App() {
           onChange={(e)=>{handleEdit(todo.id, e.target.value)}} 
           className='inputText'
           value={todo.inputValue}/>
+          <input type="checkbox"
+          onChange={(e)=>{handleChecked(todo.id, e.target.checked)}} 
+          className='inputText'
+          value={todo.inputValue}
+          disabled={todo.checked}/>
+          <button onClick={(e)=>handleDelete(todo.id)}>消</button>
             </li>
           ))}
         </ul>
